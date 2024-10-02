@@ -1,12 +1,10 @@
 using System.ComponentModel.DataAnnotations;
 using Catedra1IDWM.Src.Services;
 
-namespace Catedra1IDWM.Src.Models
+namespace Catedra1IDWM.Src.DTOs
 {
-    public class User
+    public class CreateUserDto
     {
-        public int Id {get; set;}
-
         public required string Rut {get; set;}
 
         [StringLength(100, MinimumLength = 3, ErrorMessage = "El nombre tiene que estar entre 3 y 100 caracteres")]
@@ -20,5 +18,6 @@ namespace Catedra1IDWM.Src.Models
 
         [FechaMenorQueHoy(ErrorMessage = "La fecha de nacimiento debe ser menor a la fecha actual")]
         public required DateTime FechaNacimiento {get;set;}
+
     }
 }
