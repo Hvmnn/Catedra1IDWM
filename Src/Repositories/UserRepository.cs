@@ -1,5 +1,6 @@
 using Catedra1IDWM.Src.Data;
 using Catedra1IDWM.Src.Interfaces;
+using Catedra1IDWM.Src.Models;
 using Microsoft.EntityFrameworkCore;
 
 namespace Catedra1IDWM.Src.Repositories
@@ -13,9 +14,14 @@ namespace Catedra1IDWM.Src.Repositories
             _context = context;
         }
 
-        public async Task<bool> ExistsById(int id)
+        public async Task<User?> ExistsById(int id)
         {
-            return await _context.Usuarios.AnyAsync(x => x.Id == id);
+            return await _context.Usuarios.FirstOrDefaultAsync(x => x.Id == id);
+        }
+
+        public async Task<User?> ExistsByRut(string rut)
+        {
+            return await _context.Usuarios.FirstOrDefaultAsync(x => x.Rut == rut);
         }
     }
 }

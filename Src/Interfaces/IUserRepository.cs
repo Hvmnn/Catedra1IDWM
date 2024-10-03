@@ -1,7 +1,10 @@
+using Catedra1IDWM.Src.Models;
+
 namespace Catedra1IDWM.Src.Interfaces
 {
     public interface IUserRepository
     {
-        Task<bool> ExistsById(int id);
+        Task<User> ExistsById(int id);
+        Task<User> ExistsByRut(string rut);
     }
 }
