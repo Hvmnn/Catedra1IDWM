@@ -29,7 +29,7 @@ namespace Catedra1IDWM.Controllers
         }
 
         [HttpPost("create-user")]
-        public IActionResult CreateUser([FromBody] CreateUserDto user)
+        public async Task<IActionResult> CreateUser([FromBody] CreateUserDto user)
         {
             if (!ModelState.IsValid)
             {
@@ -44,8 +44,17 @@ namespace Catedra1IDWM.Controllers
                     return Conflict("El RUT ya existe.");
                 }
 
-                _context.Usuarios.AddAsync(user);
-                _context.SaveChangesAsync();
+                var newUser = new User
+                {
+                    Rut = user.Rut,
+                    Nombre = user.Nombre,
+                    Correo = user.Correo,
+                    Genero = user.Genero,
+                    FechaNacimiento = user.FechaNacimiento
+                };
+
+                await _context.Usuarios.AddAsync(newUser);
+                await _context.SaveChangesAsync();
                 return StatusCode(201, "Usuario creado exitosamente.");
             }
             catch (Exception ex)
@@ -77,6 +86,7 @@ namespace Catedra1IDWM.Controllers
                 existingUser.FechaNacimiento = user.FechaNacimiento;
 
                 _context.Usuarios.Update(existingUser);
+                await _context.SaveChangesAsync();
                 return Ok("Usuario actualizado exitosamente.");
             }
             catch (Exception ex)
