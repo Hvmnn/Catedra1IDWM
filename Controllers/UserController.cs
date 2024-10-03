@@ -1,5 +1,6 @@
 using System.Security.Cryptography.X509Certificates;
 using Catedra1IDWM.Src.Data;
+using Catedra1IDWM.Src.DTOs;
 using Catedra1IDWM.Src.Interfaces;
 using Catedra1IDWM.Src.Models;
 using Microsoft.AspNetCore.Mvc;
@@ -28,7 +29,7 @@ namespace Catedra1IDWM.Controllers
         }
 
         [HttpPost("create-user")]
-        public IActionResult CreateUser([FromBody] User user)
+        public IActionResult CreateUser([FromBody] CreateUserDto user)
         {
             if (!ModelState.IsValid)
             {
